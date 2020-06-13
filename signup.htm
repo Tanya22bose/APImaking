@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Login </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="loginpage.css">
+</head>
+
+<body>
+    <div id="navbar">
+        <div id="typtitans">
+            <h3 id="typ">TYP.</h3>
+            <h3 id="titans">TITANS</h3>
+        </div>
+
+        <div id="links">
+            <h3 id="link1">Home</h3>
+            <h3 id="link2">About</h3>
+            <h3 id="link3">Contact</h3>
+            <h3 id="last">Login</h3>
+        </div>
+    </div>
+
+    <div id="main">
+        <div>
+            <img src="test.jpeg" style="width: 760px;  height:210px; border-radius: 20px;">
+        </div>
+        <div id="row">
+            <div id="content" style="font-family: Arial, Helvetica, sans-serif; text-align: left;padding-top: 40px ;padding-left: 40px; padding-right: 40px; padding-bottom: 20px;">
+                <b style="font-size: medium;">😃 Welcome to our homepage!</b>
+                <p style="font-size: x-small;">Using this page, you can login to my solution.<br><br> This is the dashboard for the unique application which leverages Javascript all across the borders. The application is developed using ReactJS framework at the client side and at the
+                    server side, we have used NodeJS / ExpressJS and MongoDB. The application will be deployed on cloud on the cloud provider of our choice once the development is finished.</p>
+                <b style="font-size: medium;">Its Open Source!</b>
+                <p style="font-size: x-small;">We ❤ Open Source. The source code of this project is available on GitHub and can be checked by anyone and is under MIT license so that anyone can modify and re-distribute non-commercial as well as commercial version of the application.</p>
+                <b style="font-size: medium;">Facing Problem?</b>
+                <p style="font-size: x-small;">In case you are facing any problem while logging in or need more information about how to navigate through the application, you may contact us by going to contact us page.</p>
+            </div>
+            <div id="login">
+                <h1 id="loginpage" style="font-family: Arial, Helvetica, sans-serif;font-size: medium;">SignUp</h1>
+
+                <h3 id="username" style="font-family: Arial, Helvetica, sans-serif;font-size: x-small;">Username</h3>
+                <input id="username1" type="text" style="padding: 5px;">
+                <h3 id="password" style="font-family: Arial, Helvetica, sans-serif;font-size: x-small;">Password</h3>
+                <input id="password1" type="password" style="padding: 5px;">
+                <div id="check">
+                    <input onclick="myfunction()" type="checkbox" style="background-color:black;">
+                    <p style="font-size: x-small;font-family: Arial, Helvetica, sans-serif; color: black;"> Show Password </p>
+                </div>
+                <button id="loginbutton" onclick="signin()">Signin</button>
+            </div>
+        </div>
+    </div>
+    <div id="navdown">
+        <h6>(c) The Youth Project, TYP TITANS</h6>
+        <div id="b">
+            <h6 style="margin-right: 10px;">Terms of Use</h6>
+            <h6 style="margin-right: 10px;">Privacy Policy</h6>
+            <h6 style="background-color: black; padding-top: 4px; padding-bottom: 4px; padding-right: 10px; border-right: white solid 1px;">Support</h6>
+            <i class="fab fa-facebook-square" style="margin-left: 20px;"></i>
+            <i class="fab fa-twitter-square" style="margin-left: 20px;"></i>
+            <i class="fab fa-instagram" style="margin-left: 20px;"></i>
+            <i class="fab fa-github-square" style="margin-left: 20px;"></i>
+        </div>
+    </div>
+    <script>
+        var authentication = [];
+        var k = -1;
+
+        function signin() {
+            if (k == 0) {
+                var o = confirm("Congratulations. Login now by clicking OK.");
+                if (o == true) {
+                    window.location.href = "loginpage.htm";
+                }
+            }
+
+            var url = "http://localhost:8080/todo/signin";
+            fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "Username": document.getElementById("username1").value
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+                .then(response => {
+                    if (response.status == 200) {
+                        var promiseofdata = response.json();
+                        if (response.status == 200) {
+                            promiseofdata.then(jsondata => {
+                                authentication = jsondata;
+                                render();
+                            })
+                        }
+                    }
+
+                })
+        };
+
+
+        function render() {
+            if (authentication.Username != undefined) {
+                alert("Username already taken. Please try again.")
+                window.location.href = "signup.htm";
+            } else {
+                k = 0;
+                var urllogin = "http://localhost:8080/todo/create/id";
+                fetch(urllogin, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            "Username": document.getElementById("username1").value,
+                            "Password": document.getElementById("password1").value
+                        }),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            var promiseofdata = response.json();
+
+                        }
+
+                    })
+
+            }
+        }
+
+
+        function myfunction() {
+            var x = document.getElementById("password1");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="todo.css">
+    <title>TO DO LIST</title>
+</head>
+
+<body>
+    <div>
+        <h1 id="header" style="margin-left: 400px; background-color: #ffeaa7; color: black; width: 510px; height: 40px; border-radius: 10px; padding: 8px; padding-right: 0px">
+            TO-DO LIST
+        </h1>
+    </div>
+    <div style="margin-top: 30px;">
+        <label for="taskname" style="color: whitesmoke; margin-left:400px;">Task name:</label
+      ><br />
+      <input
+        type="text"
+        id="taskname"
+        placeholder="Task Name"
+        class="intro"
+        style="margin-left:400px; cursor: pointer; width:500px; display:block; height: 40px; border-radius: 6px; padding: 6px;"
+      /><br />
+      <label for="description" style="color: whitesmoke; margin-left:400px;"
+        >Description:</label
+      ><br />
+      <input
+        type="text"
+        id="description"
+        placeholder="Description"
+        class="intro"
+        style="margin-left:400px; cursor: pointer; width:500px; display:block; height: 40px; border-radius: 6px; padding: 6px;"
+      /><br />
+      <label for="date" style="color: whitesmoke; margin-left:400px;"
+        >Deadline:</label
+      ><br />
+      <input
+        type="date"
+        id="date"
+        class="intro"
+        style="margin-left:400px; cursor: pointer; width:500px; display:block; height: 40px; border-radius: 6px; padding: 6px;"
+      /><br />
+      <input
+        id="submit"
+        type="submit"
+        value="Add New Task"
+        style="margin-left:535px; cursor: pointer; background-color: #ffeaa7; border-radius: 6px;width:250px;display:block; height: 50px;"
+      />
+    </div>
+    <p id="navbar"></p>
+    <div>
+        <input
+        id="donetasks"
+        type="submit"
+        value="See your completed tasks"
+        onclick="completed()"
+        style="margin-left:535px; cursor: pointer; background-color: #ffeaa7; border-radius: 6px;width:250px;display:block; height: 50px;"
+      />
+    </div>
+    
+    
+
+<!-- ============================================================================================= -->
+
+
+
+    <script>
+    var k=0;
+    var u ;
+    var urlusername = "http://localhost:8080/todo/username";
+        var promiseofresponse = fetch(urlusername);
+        promiseofresponse.then(response => {
+                if (response.status == 200) {
+                    var promiseofdata = response.json();
+                    promiseofdata.then(jsondata => {
+                        u = jsondata;
+                       
+                    })
+                }
+            }
+
+        );
+    var url="http://localhost:8080/";
+    var TodoItems=[];
+      // ===============================================
+      // WORK DONE
+
+      function done(i) {
+          var o = confirm("Are you sure this task is completed?");
+          if (o == true) {
+          var urlupdate = url + "todo/update" 
+          fetch(urlupdate,{
+                method:"POST",
+                body: JSON.stringify({
+                "Username":u.Username,
+                "Taskname":TodoItems[i].Taskname,
+                "Description":TodoItems[i].Description,
+                "Date":TodoItems[i].Date,
+                "isCompleted":TodoItems[i].isCompleted,
+                }),
+        headers:{
+            "Content-type":"application/json; charset=UTF-8"
+        }
+       })
+       .then(response =>{
+        response.json();
+        render();
+       } );
+    }
+      }
+      
+      // ===========================================
+      // DELETE
+
+      function del(i) {
+        var o = confirm("Are you sure you want to delete this task?");
+        if (o == true) {
+            var urlcreate = url+"todo/delete";
+            fetch(urlcreate,{
+                method:"POST",
+                body: JSON.stringify({
+                "Username":u.Username,
+                "Taskname":TodoItems[i].Taskname,
+                "Description":TodoItems[i].Description,
+                "Date":TodoItems[i].Date
+        }),
+        headers:{
+            "Content-type":"application/json; charset=UTF-8"
+        }
+       })
+       .then(response =>{
+        response.json();
+        render();
+       } );
+        
+        }
+      }
+      // ===========================================
+      // EDIT
+
+      function edit(i) {
+        document.getElementById("header").innerHTML = "EDITING MODE";
+        document.getElementById("submit").value = "Add Edited Task";
+        k=1;
+        var urlfind = url+'todo/list';
+            fetch(urlfind,{
+                method:"POST",
+                body: JSON.stringify({
+                "Username":u.Username,
+                "Taskname":TodoItems[i].Taskname,
+                "Description":TodoItems[i].Description,
+                "Date":TodoItems[i].Date
+        }),
+        headers:{
+            "Content-type":"application/json; charset=UTF-8"
+        }
+       })
+       .then(response =>{
+        var promiseofdata= response.json();
+        promiseofdata.then(jsondata => {
+            document.getElementById("taskname").value=jsondata.Taskname;
+            document.getElementById("description").value=jsondata.Description;
+            document.getElementById("date").value=jsondata.Date;
+        })
+       } );
+    
+      }
+      // ===========================================
+      // GLOBAL
+
+      submit.addEventListener("click", function() {
+        document.getElementById("header").innerHTML = "TO-DO LIST";
+        document.getElementById("submit").value = "Add New Task";
+
+        
+
+                       // creation of a task===========================================================
+        if(k==0){
+            var urlcreate = url+"todo/create";
+            fetch(urlcreate,{
+                method:"POST",
+                body: JSON.stringify({
+                "Username":u.Username,
+                "Taskname":document.getElementById("taskname").value,
+                "Description":document.getElementById("description").value,
+                "Date":document.getElementById("date").value,
+                "isCompleted":false
+        }),
+        headers:{
+            "Content-type":"application/json; charset=UTF-8"
+        }
+       })
+       .then(response => {
+        response.json();
+        render();
+       });
+        }
+        else if(k==1)
+        {
+            k=0;
+            var urlupdatelist = url + "todo/updatelist";
+            fetch(urlupdatelist,{
+                method:"POST",
+                body: JSON.stringify({
+                    $set:{
+                        "Username":u.Username,
+                        "Taskname":document.getElementById("taskname").value,
+                        "Description":document.getElementById("description").value,
+                        "Date":document.getElementById("date").value,
+                         "isCompleted":false
+                    }
+               
+        }),
+        headers:{
+            "Content-type":"application/json; charset=UTF-8"
+        }
+       })
+       .then(response => {
+        response.json();
+        render();
+        
+       });
+    }
+      });
+
+      // ====================================================================
+      // RENDER (Fetching)
+
+      
+      function render() {
+            var urllist = url + "todo/filter";
+            var promiseofresponse = fetch(urllist);
+            promiseofresponse.then(response => {
+                if (response.status == 200) {
+                    var promiseofdata = response.json();
+                    promiseofdata.then(jsondata => {
+                        TodoItems = jsondata;
+                        renderfinal();
+                    })
+                }
+            })
+        }
+        
+      function renderfinal(){
+        var listHTML = "";
+        for (var i = 0; i <TodoItems.length; i++) {
+        listHTML += `<div class="card">
+        <div>
+            <p id="confirm"> </p>
+        </div>
+        <div style="font-weight:bold; margin-bottom:10px;">Task Name : ${TodoItems[i].Taskname}
+        </div>
+        <div style="margin-bottom:4px">Description : ${TodoItems[i].Description}
+        </div>
+        <div style="margin-bottom:6px">Deadline : ${TodoItems[i].Date}</div>
+        <div id="btns">
+        <button id="del" onclick="del(${i})" style="background-color:red; width:100%; cursor: pointer;">Delete</button>
+        <button id="edit" onclick="edit(${i})" style="background-color:#535c68; color:white; width:100%;cursor: pointer;">Edit</button>
+        <button id="done" onclick="done(${i})" style="background-color:#3498DB; color:white; width:100%;cursor: pointer;">Work Done</button>
+        </div>
+        </div>`;
+        }
+        document.getElementById("navbar").innerHTML = listHTML;
+        document.getElementById("taskname").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("date").value = "";
+    }
+
+    function completed()
+    {
+        window.location.href = "completed.htm"  
+    }
+    
+    </script>
+  </body>
+</html>

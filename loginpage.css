@@ -1,0 +1,271 @@
+body {
+    margin: 0;
+    /* height: 100%; */
+    /* background-color: ; */
+}
+
+#navbar {
+    background-color: rgb(15, 18, 20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+}
+
+#links {
+    /* background-color: yellow; */
+    display: flex;
+    height: 50px;
+    width: 300px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#link1 {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#link2 {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#link3 {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    padding-right: 20px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-right: white solid 1px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#last {
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #057d8d;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 20px;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(212, 208, 208);
+    height: 100vh;
+    padding-top: 30px;
+}
+
+#row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 17px;
+    /* display: block;margin-left: auto; margin-right: auto; */
+}
+
+#content {
+    background-color: white;
+    height: 260px;
+    width: 450px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 3px rgb(179, 176, 176);
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    background-color: white;
+    height: 320px;
+    width: 205px;
+    border-radius: 8px;
+    box-shadow: 2px 3px rgb(179, 176, 176);
+}
+
+#loginpage {
+    color: black;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+#loginpage1 {
+    color: black;
+    text-align: left;
+    margin-top: 3px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+#username {
+    color: black;
+    text-align: left;
+    margin-left: 12px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+#username1 {
+    margin-bottom: 8px;
+    margin-top: 0px;
+    width: 88%;
+    background-color: rgb(224, 219, 219);
+    border-radius: 5px;
+    /* border: 100px black; */
+    border-style: 5px solid;
+    border: black;
+    border-width: thin;
+    margin-left: 10px;
+}
+
+#password {
+    color: black;
+    text-align: left;
+    margin-left: 12px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#password1 {
+    margin-bottom: 8px;
+    margin-top: 0px;
+    width: 88%;
+    background-color: rgb(224, 219, 219);
+    border-radius: 5px;
+    /* border: 100px black; */
+    border-style: 5px solid;
+    border: black;
+    border-width: thin;
+    margin-left: 10px;
+}
+
+#loginbutton {
+    background-color: #057d8d;
+    color: white;
+    border-radius: 4px;
+    width: 88%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#loginfbbutton {
+    background-color: rgb(4, 4, 192);
+    color: white;
+    border-radius: 5px;
+    width: 88%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+#logingmailbutton {
+    background-color: rgb(30, 88, 247);
+    color: white;
+    border-radius: 5px;
+    width: 88%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+#forgotpassword {
+    color: black;
+    text-align: left;
+    margin-left: 12px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#typtitans {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#typ {
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #057d8d;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 8px;
+}
+
+#titans {
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#navdown {
+    background-color: rgb(15, 18, 20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#b {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#icon1 {
+    /* margin-left: 0px;
+    margin-right: 5px; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-right: 25px;
+}
+
+#icon2 {
+    /* margin-left: 0px;
+    margin-right: 5px; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+
+#check {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 82px;
+}
